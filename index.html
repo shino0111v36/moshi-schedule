@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大学受験 模試日程ガイド</title>
+  <style>
+    :root {
+      --toshin: #e74c3c; --toshin-light: #fdecea;
+      --kawai:  #2980b9; --kawai-light:  #eaf4fb;
+      --sundai: #27ae60; --sundai-light: #eafaf1;
+      --other:  #8e44ad; --other-light:  #f5eef8;
+      --todai:  #c0392b;
+      --nankan: #d35400;
+      --kyotsu: #1a5276;
+      --bg: #f4f6f8; --card: #fff; --text: #2c3e50;
+      --text-sub: #7f8c8d; --border: #e0e6ed; --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Sans','Yu Gothic UI','Meiryo',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* HEADER */
+    header { background: linear-gradient(135deg,#1a2a4a,#2c4a7c); color: #fff; padding: 24px 32px 20px; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+    header h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: .03em; }
+    .header-sub { margin-top: 6px; font-size: .82rem; opacity: .7; display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* CONTAINER */
+    .container { max-width: 1200px; margin: 0 auto; padding: 22px 20px; }
+
+    /* DISCLAIMER */
+    .disclaimer { background: #fef9e7; border: 1px solid #f9ca24; border-radius: 8px; padding: 11px 15px; font-size: .81rem; color: #7d6608; margin-bottom: 18px; display: flex; gap: 8px; }
+
+    /* LEGEND */
+    .legend-row { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 18px; align-items: center; }
+    .legend-sep { color: var(--border); font-size: 1.2rem; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: .82rem; }
+    .legend-dot { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+
+    /* FILTER BAR */
+    .filter-bar { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 16px; }
+    .filter-group { display: flex; flex-direction: column; gap: 6px; }
+    .filter-group label { font-size: .76rem; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: .06em; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 5px; }
+    .filter-btn { border: 1.5px solid var(--border); background: #fff; color: var(--text); padding: 5px 13px; border-radius: 20px; font-size: .82rem; cursor: pointer; transition: all .18s; font-family: inherit; }
+    .filter-btn:hover { background: var(--bg); }
+    .filter-btn.active-all    { background: #2c4a7c; color: #fff; border-color: #2c4a7c; }
+    .filter-btn.active-toshin { background: var(--toshin); color: #fff; border-color: var(--toshin); }
+    .filter-btn.active-kawai  { background: var(--kawai);  color: #fff; border-color: var(--kawai); }
+    .filter-btn.active-sundai { background: var(--sundai); color: #fff; border-color: var(--sundai); }
+    .filter-btn.active-other  { background: var(--other);  color: #fff; border-color: var(--other); }
+    .filter-btn.active-todai  { background: var(--todai);  color: #fff; border-color: var(--todai); }
+    .filter-btn.active-nankan { background: var(--nankan); color: #fff; border-color: var(--nankan); }
+    .filter-btn.active-kyotsu { background: var(--kyotsu); color: #fff; border-color: var(--kyotsu); }
+    .filter-btn.active-g1     { background: #16a085; color: #fff; border-color: #16a085; }
+    .filter-btn.active-g2     { background: #8e44ad; color: #fff; border-color: #8e44ad; }
+    .filter-btn.active-g3     { background: #c0392b; color: #fff; border-color: #c0392b; }
+    .filter-btn.active-ronin  { background: #555;    color: #fff; border-color: #555; }
+
+    /* STATS */
+    .stats-row { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 18px; flex: 1; min-width: 110px; text-align: center; }
+    .stat-card .num { font-size: 1.7rem; font-weight: 700; color: #2c4a7c; }
+    .stat-card .lbl { font-size: .76rem; color: var(--text-sub); margin-top: 1px; }
+
+    /* CALENDAR */
+    .month-block { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; }
+    .month-header { background: linear-gradient(135deg,#2c4a7c,#1a2a4a); color: #fff; padding: 11px 18px; font-size: .95rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+    .count-badge { background: rgba(255,255,255,.22); border-radius: 12px; padding: 2px 10px; font-size: .77rem; }
+    .exam-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--border); transition: background .14s; }
+    .exam-row:last-child { border-bottom: none; }
+    .exam-row:hover { background: #f8fafc; }
+    .school-bar { width: 6px; flex-shrink: 0; }
+    .school-bar.toshin { background: var(--toshin); }
+    .school-bar.kawai  { background: var(--kawai); }
+    .school-bar.sundai { background: var(--sundai); }
+    .school-bar.other  { background: var(--other); }
+    .exam-content { flex: 1; padding: 12px 15px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .exam-date { font-size: .92rem; font-weight: 700; min-width: 78px; }
+    .exam-name { flex: 1; min-width: 150px; font-size: .88rem; }
+    .school-tag { font-size: .73rem; font-weight: 700; padding: 3px 9px; border-radius: 11px; white-space: nowrap; }
+    .school-tag.toshin { background: var(--toshin-light); color: var(--toshin); }
+    .school-tag.kawai  { background: var(--kawai-light);  color: var(--kawai); }
+    .school-tag.sundai { background: var(--sundai-light); color: var(--sundai); }
+    .school-tag.other  { background: var(--other-light);  color: var(--other); }
+    .type-tag { font-size: .7rem; font-weight: 700; padding: 2px 8px; border-radius: 9px; white-space: nowrap; }
+    .type-tag.todai  { background: #fadbd8; color: var(--todai); }
+    .type-tag.nankan { background: #fdebd0; color: var(--nankan); }
+    .type-tag.kyotsu { background: #d6eaf8; color: var(--kyotsu); }
+    .grade-tags { display: flex; gap: 3px; flex-wrap: wrap; }
+    .grade-tag { font-size: .68rem; font-weight: 600; padding: 2px 7px; border-radius: 8px; white-space: nowrap; }
+    .grade-tag.g1    { background: #d1f2eb; color: #148f77; }
+    .grade-tag.g2    { background: #e8daef; color: #7d3c98; }
+    .grade-tag.g3    { background: #fde8e8; color: #c0392b; }
+    .grade-tag.ronin { background: #eaecee; color: #555; }
+    .apply-btn { display: inline-block; background: #2c4a7c; color: #fff; padding: 5px 13px; border-radius: 6px; font-size: .76rem; text-decoration: none; white-space: nowrap; transition: background .18s; }
+    .apply-btn:hover { background: #1a2a4a; }
+
+    .no-results { text-align: center; padding: 44px; color: var(--text-sub); font-size: .92rem; }
+    .result-bar { text-align: right; margin-bottom: 12px; font-size: .83rem; color: var(--text-sub); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 大学受験 模試日程ガイド</h1>
+  <div class="header-sub">
+    <span>東大模試・難関大模試・共通テスト模試の日程を塾別・学年別に確認</span>
+    <span id="headerWindow"></span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="disclaimer">
+    <span>⚠️</span>
+    <span>掲載情報は調査時点のものです。日程・詳細は各塾の公式サイトで必ずご確認ください。</span>
+  </div>
+
+  <!-- 凡例 -->
+  <div class="legend-row">
+    <span style="font-size:.8rem;font-weight:700;color:var(--text-sub)">塾</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--toshin)"></span>東進</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--kawai)"></span>河合塾</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--sundai)"></span>駿台</span>
+    <span class="legend-sep">|</span>
+    <span style="font-size:.8rem;font-weight:700;color:var(--text-sub)">種別</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#fadbd8"></span>東大模試</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#fdebd0"></span>難関大模試</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#d6eaf8"></span>共通テスト模試</span>
+    <span class="legend-sep">|</span>
+    <span style="font-size:.8rem;font-weight:700;color:var(--text-sub)">学年</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#d1f2eb"></span>高1</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#e8daef"></span>高2</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#fde8e8"></span>高3</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#eaecee"></span>既卒</span>
+  </div>
+
+  <!-- フィルター -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>塾</label>
+      <div class="btn-group" id="schoolBtns">
+        <button class="filter-btn active-all" onclick="setFilter('school','all',this)">すべて</button>
+        <button class="filter-btn" onclick="setFilter('school','toshin',this)">東進</button>
+        <button class="filter-btn" onclick="setFilter('school','kawai',this)">河合塾</button>
+        <button class="filter-btn" onclick="setFilter('school','sundai',this)">駿台</button>
+        <button class="filter-btn" onclick="setFilter('school','other',this)">その他</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label>種別</label>
+      <div class="btn-group" id="typeBtns">
+        <button class="filter-btn active-all" onclick="setFilter('type','all',this)">すべて</button>
+        <button class="filter-btn" onclick="setFilter('type','todai',this)">東大模試</button>
+        <button class="filter-btn" onclick="setFilter('type','nankan',this)">難関大模試</button>
+        <button class="filter-btn" onclick="setFilter('type','kyotsu',this)">共通テスト模試</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <label>受験学年</label>
+      <div class="btn-group" id="gradeBtns">
+        <button class="filter-btn active-all" onclick="setFilter('grade','all',this)">すべて</button>
+        <button class="filter-btn" onclick="setFilter('grade','g1',this)">高1</button>
+        <button class="filter-btn" onclick="setFilter('grade','g2',this)">高2</button>
+        <button class="filter-btn" onclick="setFilter('grade','g3',this)">高3</button>
+        <button class="filter-btn" onclick="setFilter('grade','ronin',this)">既卒・浪人</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 統計 -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="num" id="stTotal">0</div><div class="lbl">全模試数</div></div>
+    <div class="stat-card"><div class="num" id="stToshin" style="color:var(--toshin)">0</div><div class="lbl">東進</div></div>
+    <div class="stat-card"><div class="num" id="stKawai"  style="color:var(--kawai)">0</div><div class="lbl">河合塾</div></div>
+    <div class="stat-card"><div class="num" id="stSundai" style="color:var(--sundai)">0</div><div class="lbl">駿台</div></div>
+  </div>
+
+  <div class="result-bar"><span id="resultCount"></span></div>
+
+  <!-- カレンダービュー -->
+  <div id="calendarView"></div>
+
+</div><!-- /container -->
+
+<script>
+const LAST_UPDATED = "2026-04-29";
+
+const allExams = [
+
+  // ===== 2026年度（2025年〜2026年1月実施）=====
+
+  // -- 東進 --
+  { date:"2025-02-16", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ①", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2025-04-20", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ②", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2025-06-07", school:"toshin", type:"todai",  grades:["g3","ronin"],
+    name:"東大本番レベル模試 第1回", url:"https://www.toshin-moshi.com/todai_level/" },
+  { date:"2025-06-29", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ③", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2025-08-23", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ④", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2025-08-31", school:"toshin", type:"todai",  grades:["g3","ronin"],
+    name:"東大本番レベル模試 第2回", url:"https://www.toshin-moshi.com/todai_level/" },
+  { date:"2025-09-28", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ⑤", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2025-10-12", school:"toshin", type:"todai",  grades:["g3","ronin"],
+    name:"東大本番レベル模試 第3回", url:"https://www.toshin-moshi.com/todai_level/" },
+  { date:"2025-11-02", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ⑥", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2025-11-16", school:"toshin", type:"nankan", grades:["g3","ronin"],
+    name:"難関大・有名大模試", url:"https://www.toshin-moshi.com/" },
+  { date:"2025-12-21", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"共通テスト本番レベル模試 ⑦", url:"https://www.toshin-moshi.com/kyotsu/" },
+  { date:"2026-01-24", school:"toshin", type:"todai",  grades:["g3","ronin"],
+    name:"東大本番レベル模試 第4回（2日間）", url:"https://www.toshin-moshi.com/todai_level/" },
+
+  // -- 河合塾 --
+  { date:"2025-04-27", school:"kawai", type:"kyotsu", grades:["g3","ronin"],
+    name:"プライムステージ（共通テスト）", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-05-11", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第1回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-05-12", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第1回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-07-27", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-08-02", school:"kawai", type:"todai",  grades:["g3","ronin"],
+    name:"第1回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai01/" },
+  { date:"2025-08-25", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-09-28", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-10-19", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第3回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+  { date:"2025-10-26", school:"kawai", type:"todai",  grades:["g3","ronin"],
+    name:"第2回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai02/" },
+  { date:"2025-11-02", school:"kawai", type:"kyotsu", grades:["g3","ronin"],
+    name:"全統プレ共通テスト（2日間）", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+
+  // -- 駿台 --
+  { date:"2025-04-13", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"駿台・ベネッセ共通テスト模試 第1回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2025-05-18", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"駿台全国模試 第1回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2025-07-13", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"駿台・ベネッセ共通テスト模試 第2回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2025-08-09", school:"sundai", type:"todai",  grades:["g3","ronin"],
+    name:"第1回 東大入試実戦模試（2日間）", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568536.html" },
+  { date:"2025-08-17", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"駿台全国模試 第2回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2025-10-05", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"駿台・ベネッセ共通テスト模試 第3回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2025-10-26", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"駿台全国模試 第3回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2025-11-01", school:"sundai", type:"todai",  grades:["g3","ronin"],
+    name:"第2回 東大入試実戦模試（2日間）", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html" },
+  { date:"2025-11-30", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"駿台・ベネッセ共通テスト模試 第4回", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+
+  // ===== 2027年度（2026年実施）=====
+
+  // 東進 2027年度
+  { date:"2026-02-15", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第1回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-04-26", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第2回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-05-24", school:"toshin", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第1回 全国国公立大記述模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-06-07", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
+    name:"第1回 東大本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-08-23", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第3回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-08-30", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
+    name:"第2回 東大本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-10-11", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
+    name:"第3回 東大本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-11-22", school:"toshin", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第4回 全国国公立大記述模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2026-12-20", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第4回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
+  { date:"2027-01-23", school:"toshin", type:"todai",  grades:["g3","ronin"],
+    name:"第4回（最終）東大本番レベル模試（2日間）", url:"https://www.toshin.com/dn/exam/" },
+
+  // 河合塾 2027年度
+  { date:"2026-04-26", school:"kawai", type:"nankan", grades:["g3","ronin"],
+    name:"プライムステージ", url:"https://www.kawai-juku.ac.jp/moshi/" },
+  { date:"2026-05-10", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第1回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+  { date:"2026-05-17", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第1回 全統記述模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+  { date:"2026-08-02", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+  { date:"2026-08-09", school:"kawai", type:"todai",  grades:["g3","ronin"],
+    name:"第1回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/moshi/open/" },
+  { date:"2026-09-06", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+  { date:"2026-10-04", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+  { date:"2026-11-01", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第3回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+  { date:"2026-11-03", school:"kawai", type:"todai",  grades:["g3","ronin"],
+    name:"第2回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/moshi/open/" },
+  { date:"2026-11-15", school:"kawai", type:"kyotsu", grades:["g3","ronin"],
+    name:"全統プレ共通テスト", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
+
+  // 駿台 2027年度
+  { date:"2026-05-31", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第1回 駿台全国模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2026-08-09", school:"sundai", type:"todai",  grades:["g3","ronin"],
+    name:"第1回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html" },
+  { date:"2026-09-13", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第1回 駿台・ベネッセ共通テスト模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2026-09-27", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
+    name:"第2回 駿台全国模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2026-10-11", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第2回 駿台・ベネッセ記述模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2026-11-01", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
+    name:"第3回 駿台・ベネッセ共通テスト模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+  { date:"2026-11-15", school:"sundai", type:"todai",  grades:["g3","ronin"],
+    name:"第2回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html" },
+
+];
+
+const schoolNames = { toshin:'東進', kawai:'河合塾', sundai:'駿台', other:'その他' };
+const typeNames   = { todai:'東大模試', nankan:'難関大模試', kyotsu:'共通テスト模試' };
+const gradeNames  = { g1:'高1', g2:'高2', g3:'高3', ronin:'既卒' };
+const weekdays    = ['日','月','火','水','木','金','土'];
+
+// ===== 表示ウィンドウ（LAST_UPDATED の前後12ヶ月）=====
+function getWindow() {
+  const base = new Date(LAST_UPDATED + 'T00:00:00');
+  const from = new Date(base); from.setMonth(from.getMonth() - 12);
+  const to   = new Date(base); to.setMonth(to.getMonth()   + 12);
+  return { from, to };
+}
+
+function getMonthKeys() {
+  const { from, to } = getWindow();
+  const list = [];
+  const cur = new Date(from.getFullYear(), from.getMonth(), 1);
+  while (cur <= to) {
+    const y = cur.getFullYear();
+    const m = cur.getMonth() + 1;
+    list.push({
+      key:   `${y}-${String(m).padStart(2,'0')}`,
+      label: `${y}年${m}月`
+    });
+    cur.setMonth(cur.getMonth() + 1);
+  }
+  return list;
+}
+
+let filterSchool = 'all';
+let filterType   = 'all';
+let filterGrade  = 'all';
+
+function setFilter(kind, val, btn) {
+  if (kind==='school') { filterSchool=val; updateBtns('schoolBtns', val); }
+  if (kind==='type')   { filterType=val;   updateBtns('typeBtns',   val); }
+  if (kind==='grade')  { filterGrade=val;  updateBtns('gradeBtns',  val); }
+  render();
+}
+
+function updateBtns(groupId, active) {
+  document.querySelectorAll(`#${groupId} .filter-btn`).forEach(b => { b.className='filter-btn'; });
+  const clicked = document.querySelector(`#${groupId} .filter-btn[onclick*="'${active}'"]`);
+  if (clicked) clicked.className = `filter-btn active-${active}`;
+}
+
+function getFiltered() {
+  const { from, to } = getWindow();
+  const fromStr = from.toISOString().slice(0,7);
+  const toStr   = to.toISOString().slice(0,7);
+  return allExams.filter(e => {
+    const mo = e.date.slice(0,7);
+    if (mo < fromStr || mo > toStr) return false;
+    if (filterSchool!=='all' && e.school!==filterSchool) return false;
+    if (filterType  !=='all' && e.type  !==filterType  ) return false;
+    if (filterGrade !=='all' && !e.grades.includes(filterGrade)) return false;
+    return true;
+  }).sort((a,b) => a.date.localeCompare(b.date));
+}
+
+function fmtDate(ds) {
+  const d = new Date(ds+'T00:00:00');
+  const w = weekdays[d.getDay()];
+  return `${d.getMonth()+1}/${d.getDate()}(${w})`;
+}
+
+function gradeTagsHtml(grades) {
+  return `<div class="grade-tags">${grades.map(g=>`<span class="grade-tag ${g}">${gradeNames[g]}</span>`).join('')}</div>`;
+}
+
+function updateStats(data) {
+  document.getElementById('stTotal').textContent  = data.length;
+  document.getElementById('stToshin').textContent = data.filter(e=>e.school==='toshin').length;
+  document.getElementById('stKawai').textContent  = data.filter(e=>e.school==='kawai').length;
+  document.getElementById('stSundai').textContent = data.filter(e=>e.school==='sundai').length;
+  document.getElementById('resultCount').textContent = `${data.length}件を表示中`;
+}
+
+function renderCalendar(data) {
+  const months = getMonthKeys();
+  const cv = document.getElementById('calendarView');
+  let html = '';
+  let total = 0;
+  for (const m of months) {
+    const items = data.filter(e => e.date.startsWith(m.key));
+    if (!items.length) continue;
+    total += items.length;
+    html += `<div class="month-block">
+      <div class="month-header"><span>${m.label}</span><span class="count-badge">${items.length}件</span></div>
+      <div class="month-body">`;
+    for (const e of items) {
+      html += `<div class="exam-row">
+        <div class="school-bar ${e.school}"></div>
+        <div class="exam-content">
+          <span class="exam-date">${fmtDate(e.date)}</span>
+          <span class="exam-name">${e.name}</span>
+          <span class="school-tag ${e.school}">${schoolNames[e.school]}</span>
+          <span class="type-tag ${e.type}">${typeNames[e.type]}</span>
+          ${gradeTagsHtml(e.grades)}
+          <a class="apply-btn" href="${e.url}" target="_blank" rel="noopener">詳細・申込 →</a>
+        </div>
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+  if (!total) html = `<div class="no-results">条件に合う模試が見つかりませんでした。</div>`;
+  cv.innerHTML = html;
+}
+
+function updateHeaderWindow() {
+  const d = new Date(LAST_UPDATED + 'T00:00:00');
+  document.getElementById('headerWindow').textContent =
+    `最終更新：${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+}
+
+function render() {
+  const data = getFiltered();
+  updateStats(data);
+  renderCalendar(data);
+}
+
+updateHeaderWindow();
+render();
+</script>
+</body>
+</html>

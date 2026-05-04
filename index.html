@@ -184,8 +184,21 @@
 </div><!-- /container -->
 
 <script>
-const LAST_UPDATED = "2026-05-03";
+// =============================================================
+// ★ データを更新したら LAST_UPDATED の日付も書き換えてください ★
+// 例: "2027-04-01" と書くと、2026年4月〜2028年4月の範囲を表示します
+// =============================================================
+const LAST_UPDATED = "2026-05-05";
 
+// =============================================================
+// ===== 模試データ =====
+// 新しい年度のデータはこの配列に追加してください。
+// 形式: { date, school, type, grades, name, url }
+//   date  : "YYYY-MM-DD"
+//   school: "toshin" / "kawai" / "sundai" / "other"
+//   type  : "todai" / "nankan" / "kyotsu"
+//   grades: ["g1","g2","g3","ronin"] の組み合わせ
+// =============================================================
 const allExams = [
 
   // ===== 2026年度（2025年〜2026年1月実施）=====
@@ -208,11 +221,11 @@ const allExams = [
   { date:"2025-10-12", school:"toshin", type:"todai",  grades:["g3","ronin"],
     name:"東大本番レベル模試 第3回", url:"https://www.toshin-moshi.com/todai_level/" },
   { date:"2025-11-02", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"共通テスト本番レベル模試 ⑥", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"共通テスト本番レベル模試 ⑤", url:"https://www.toshin-moshi.com/kyotsu/" },
   { date:"2025-11-16", school:"toshin", type:"nankan", grades:["g3","ronin"],
     name:"難関大・有名大模試", url:"https://www.toshin-moshi.com/" },
   { date:"2025-12-21", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"共通テスト本番レベル模試 ⑦", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"共通テスト本番レベル模試 ⑥", url:"https://www.toshin-moshi.com/kyotsu/" },
   { date:"2026-01-24", school:"toshin", type:"todai",  grades:["g3","ronin"],
     name:"東大本番レベル模試 第4回（2日間）", url:"https://www.toshin-moshi.com/todai_level/" },
 
@@ -262,47 +275,47 @@ const allExams = [
 
   // 東進 2027年度
   { date:"2026-02-15", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第1回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"第1回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-04-26", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第2回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"第2回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-05-24", school:"toshin", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第1回 全国国公立大記述模試", url:"https://www.toshin-moshi.com/kokuritsu/" },
+    name:"第1回 全国国公立大記述模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-06-07", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
-    name:"第1回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第1回 東大本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-08-23", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第3回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"第3回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-08-30", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
-    name:"第2回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第2回 東大本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-10-11", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
-    name:"第3回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第3回 東大本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-11-22", school:"toshin", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第4回 全国国公立大記述模試", url:"https://www.toshin-moshi.com/kokuritsu/" },
+    name:"第4回 全国国公立大記述模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2026-12-20", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第4回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"第4回 共通テスト本番レベル模試", url:"https://www.toshin.com/dn/exam/" },
   { date:"2027-01-23", school:"toshin", type:"todai",  grades:["g3","ronin"],
-    name:"第4回（最終）東大本番レベル模試（2日間）", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第4回（最終）東大本番レベル模試（2日間）", url:"https://www.toshin.com/dn/exam/" },
 
   // 河合塾 2027年度
   { date:"2026-04-26", school:"kawai", type:"nankan", grades:["g3","ronin"],
     name:"プライムステージ", url:"https://www.kawai-juku.ac.jp/moshi/" },
   { date:"2026-05-10", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第1回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"第1回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
   { date:"2026-05-17", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第1回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"第1回 全統記述模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
   { date:"2026-08-02", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
   { date:"2026-08-09", school:"kawai", type:"todai",  grades:["g3","ronin"],
     name:"第1回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/moshi/open/" },
   { date:"2026-09-06", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
   { date:"2026-10-04", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
   { date:"2026-11-01", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第3回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"第3回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
   { date:"2026-11-03", school:"kawai", type:"todai",  grades:["g3","ronin"],
     name:"第2回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/moshi/open/" },
   { date:"2026-11-15", school:"kawai", type:"kyotsu", grades:["g3","ronin"],
-    name:"全統プレ共通テスト", url:"https://www.kawai-juku.ac.jp/zento/lineup/schedule/" },
+    name:"全統プレ共通テスト", url:"https://www.kawai-juku.ac.jp/moshi/zento/" },
 
   // 駿台 2027年度
   { date:"2026-05-31", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
@@ -320,18 +333,22 @@ const allExams = [
   { date:"2026-11-15", school:"sundai", type:"todai",  grades:["g3","ronin"],
     name:"第2回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html" },
 
-];
+  // ===== 2028年度以降のデータはここに追加 =====
 
+];
+// =============================================================
+
+// ===== 定数 =====
 const schoolNames = { toshin:'東進', kawai:'河合塾', sundai:'駿台', other:'その他' };
 const typeNames   = { todai:'東大模試', nankan:'難関大模試', kyotsu:'共通テスト模試' };
 const gradeNames  = { g1:'高1', g2:'高2', g3:'高3', ronin:'既卒' };
 const weekdays    = ['日','月','火','水','木','金','土'];
 
-// ===== 表示ウィンドウ（LAST_UPDATED の前後12ヶ月）=====
+// ===== 表示ウィンドウ（LAST_UPDATED 以降・全件）=====
 function getWindow() {
-  const base = new Date(LAST_UPDATED + 'T00:00:00');
-  const from = new Date(base); from.setMonth(from.getMonth() - 12);
-  const to   = new Date(base); to.setMonth(to.getMonth()   + 12);
+  const from = new Date(LAST_UPDATED + 'T00:00:00');
+  const maxDate = allExams.reduce((max, e) => e.date > max ? e.date : max, LAST_UPDATED);
+  const to = new Date(maxDate + 'T00:00:00');
   return { from, to };
 }
 
@@ -351,10 +368,12 @@ function getMonthKeys() {
   return list;
 }
 
+// ===== STATE =====
 let filterSchool = 'all';
 let filterType   = 'all';
 let filterGrade  = 'all';
 
+// ===== フィルター =====
 function setFilter(kind, val, btn) {
   if (kind==='school') { filterSchool=val; updateBtns('schoolBtns', val); }
   if (kind==='type')   { filterType=val;   updateBtns('typeBtns',   val); }
@@ -368,13 +387,10 @@ function updateBtns(groupId, active) {
   if (clicked) clicked.className = `filter-btn active-${active}`;
 }
 
+// ===== データ取得（LAST_UPDATED 以降＋フィルター）=====
 function getFiltered() {
-  const { from, to } = getWindow();
-  const fromStr = from.toISOString().slice(0,7);
-  const toStr   = to.toISOString().slice(0,7);
   return allExams.filter(e => {
-    const mo = e.date.slice(0,7);
-    if (mo < fromStr || mo > toStr) return false;
+    if (e.date < LAST_UPDATED) return false;
     if (filterSchool!=='all' && e.school!==filterSchool) return false;
     if (filterType  !=='all' && e.type  !==filterType  ) return false;
     if (filterGrade !=='all' && !e.grades.includes(filterGrade)) return false;
@@ -382,16 +398,19 @@ function getFiltered() {
   }).sort((a,b) => a.date.localeCompare(b.date));
 }
 
+// ===== 日付フォーマット =====
 function fmtDate(ds) {
   const d = new Date(ds+'T00:00:00');
   const w = weekdays[d.getDay()];
   return `${d.getMonth()+1}/${d.getDate()}(${w})`;
 }
 
+// ===== 学年タグ =====
 function gradeTagsHtml(grades) {
   return `<div class="grade-tags">${grades.map(g=>`<span class="grade-tag ${g}">${gradeNames[g]}</span>`).join('')}</div>`;
 }
 
+// ===== 統計 =====
 function updateStats(data) {
   document.getElementById('stTotal').textContent  = data.length;
   document.getElementById('stToshin').textContent = data.filter(e=>e.school==='toshin').length;
@@ -400,6 +419,7 @@ function updateStats(data) {
   document.getElementById('resultCount').textContent = `${data.length}件を表示中`;
 }
 
+// ===== カレンダー描画 =====
 function renderCalendar(data) {
   const months = getMonthKeys();
   const cv = document.getElementById('calendarView');
@@ -431,18 +451,21 @@ function renderCalendar(data) {
   cv.innerHTML = html;
 }
 
+// ===== ヘッダーに最終更新日を表示 =====
 function updateHeaderWindow() {
   const d = new Date(LAST_UPDATED + 'T00:00:00');
   document.getElementById('headerWindow').textContent =
     `最終更新：${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 }
 
+// ===== メイン描画 =====
 function render() {
   const data = getFiltered();
   updateStats(data);
   renderCalendar(data);
 }
 
+// ===== 初期化 =====
 updateHeaderWindow();
 render();
 </script>

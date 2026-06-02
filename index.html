@@ -97,6 +97,7 @@
 
     .no-results { text-align: center; padding: 44px; color: var(--text-sub); font-size: .92rem; }
     .result-bar { text-align: right; margin-bottom: 12px; font-size: .83rem; color: var(--text-sub); }
+    .apply-info { font-size: .7rem; color: var(--text-sub); white-space: nowrap; background: #f4f6f8; border-radius: 6px; padding: 2px 7px; }
   </style>
 </head>
 <body>
@@ -239,15 +240,15 @@ const allExams = [
   { date:"2025-07-27", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
     name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
   { date:"2025-08-02", school:"kawai", type:"todai",  grades:["g3","ronin"],
-    name:"第1回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai01/" },
+    name:"第1回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai01/", applyStart:"2026-06-17" },
   { date:"2025-08-25", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
     name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
   { date:"2025-09-28", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+    name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/", applyStart:"2026-06-17" },
   { date:"2025-10-19", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第3回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+    name:"第3回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/", applyStart:"2026-06-17" },
   { date:"2025-10-26", school:"kawai", type:"todai",  grades:["g3","ronin"],
-    name:"第2回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai02/" },
+    name:"第2回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai02/", applyStart:"2026-09-16" },
   { date:"2025-11-02", school:"kawai", type:"kyotsu", grades:["g3","ronin"],
     name:"全統プレ共通テスト（2日間）", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
 
@@ -281,19 +282,19 @@ const allExams = [
   { date:"2026-05-24", school:"toshin", type:"nankan", grades:["g1","g2","g3","ronin"],
     name:"第1回 全国国公立大記述模試", url:"https://www.toshin-moshi.com/kokuritsu/" },
   { date:"2026-06-07", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
-    name:"第1回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第1回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/", applyEnd:"2026-06-04" },
   { date:"2026-08-23", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第3回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"第3回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/", applyEnd:"2026-08-20" },
   { date:"2026-08-30", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
-    name:"第2回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第2回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/", applyEnd:"2026-08-27" },
   { date:"2026-10-11", school:"toshin", type:"todai",  grades:["g2","g3","ronin"],
-    name:"第3回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第3回 東大本番レベル模試", url:"https://www.toshin-moshi.com/todai_level/", applyEnd:"2026-10-08" },
   { date:"2026-11-22", school:"toshin", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第4回 全国国公立大記述模試", url:"https://www.toshin-moshi.com/kokuritsu/" },
+    name:"第4回 全国国公立大記述模試", url:"https://www.toshin-moshi.com/kokuritsu/", applyEnd:"2026-11-19" },
   { date:"2026-12-20", school:"toshin", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第4回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/" },
+    name:"第4回 共通テスト本番レベル模試", url:"https://www.toshin-moshi.com/kyotsu/", applyEnd:"2026-12-17" },
   { date:"2027-01-23", school:"toshin", type:"todai",  grades:["g3","ronin"],
-    name:"第4回（最終）東大本番レベル模試（2日間）", url:"https://www.toshin-moshi.com/todai_level/" },
+    name:"第4回（最終）東大本番レベル模試（2日間）", url:"https://www.toshin-moshi.com/todai_level/", applyEnd:"2027-01-20" },
 
   // 河合塾 2027年度
   { date:"2026-04-26", school:"kawai", type:"nankan", grades:["g3","ronin"],
@@ -303,11 +304,11 @@ const allExams = [
   { date:"2026-05-10", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
     name:"第1回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
   { date:"2026-07-26", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+    name:"第2回 全統共通テスト模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/", applyStart:"2026-04-01" },
   { date:"2026-08-02", school:"kawai", type:"todai",  grades:["g3","ronin"],
     name:"第1回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai01/" },
   { date:"2026-08-23", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+    name:"第2回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/", applyStart:"2026-04-01" },
   { date:"2026-10-04", school:"kawai", type:"nankan", grades:["g1","g2","g3","ronin"],
     name:"第3回 全統記述模試", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
   { date:"2026-10-18", school:"kawai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
@@ -315,28 +316,28 @@ const allExams = [
   { date:"2026-10-25", school:"kawai", type:"todai",  grades:["g3","ronin"],
     name:"第2回 東大入試オープン", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/todai02/" },
   { date:"2026-11-15", school:"kawai", type:"kyotsu", grades:["g3","ronin"],
-    name:"全統プレ共通テスト", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/" },
+    name:"全統プレ共通テスト", url:"https://www.kawai-juku.ac.jp/zento/lineup/gd3/", applyStart:"2026-09-16" },
 
   // 駿台 2027年度
   { date:"2026-05-31", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
     name:"第1回 駿台全国模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
   { date:"2026-08-09", school:"sundai", type:"todai",  grades:["g3","ronin"],
-    name:"第1回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html" },
+    name:"第1回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html", applyStart:"2026-06-01", applyEnd:"2026-07-31" },
   { date:"2026-09-13", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第1回 駿台・ベネッセ共通テスト模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+    name:"第1回 駿台・ベネッセ共通テスト模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html", applyStart:"2026-06-01", applyEnd:"2026-09-04" },
   { date:"2026-09-27", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第2回 駿台全国模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+    name:"第2回 駿台全国模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html", applyStart:"2026-08-14", applyEnd:"2026-09-18" },
   { date:"2026-10-11", school:"sundai", type:"nankan", grades:["g1","g2","g3","ronin"],
-    name:"第2回 駿台・ベネッセ記述模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+    name:"第2回 駿台・ベネッセ記述模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html", applyStart:"2026-08-14", applyEnd:"2026-10-02" },
   { date:"2026-11-01", school:"sundai", type:"kyotsu", grades:["g1","g2","g3","ronin"],
-    name:"第3回 駿台・ベネッセ共通テスト模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html" },
+    name:"第3回 駿台・ベネッセ共通テスト模試", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi_grade_PD/1337364908752.html", applyStart:"2026-09-07", applyEnd:"2026-10-23" },
   { date:"2026-11-15", school:"sundai", type:"todai",  grades:["g3","ronin"],
-    name:"第2回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html" },
+    name:"第2回 東大入試実戦模試〈駿台・Z会共催〉", url:"https://www2.sundai.ac.jp/yobi/sv/sundai/moshi_P/moshi2_PD/1337374568587.html", applyStart:"2026-09-07" },
 
   // ===== 2028年度以降のデータはここに追加 =====
 
 ];
-// ============================================================
+// =============================================================
 
 // ===== 定数 =====
 const schoolNames = { toshin:'東進', kawai:'河合塾', sundai:'駿台', other:'その他' };
@@ -398,6 +399,15 @@ function getFiltered() {
   }).sort((a,b) => a.date.localeCompare(b.date));
 }
 
+// ===== 申込情報フォーマット =====
+function fmtApply(start, end) {
+  const fmt = ds => { const d=new Date(ds+'T00:00:00'); return `${d.getMonth()+1}/${d.getDate()}`; };
+  if (start && end) return `📝 申込: ${fmt(start)}〜${fmt(end)}`;
+  if (end)   return `📝 締切: ${fmt(end)}`;
+  if (start) return `📝 受付開始: ${fmt(start)}〜`;
+  return '';
+}
+
 // ===== 日付フォーマット =====
 function fmtDate(ds) {
   const d = new Date(ds+'T00:00:00');
@@ -441,6 +451,7 @@ function renderCalendar(data) {
           <span class="school-tag ${e.school}">${schoolNames[e.school]}</span>
           <span class="type-tag ${e.type}">${typeNames[e.type]}</span>
           ${gradeTagsHtml(e.grades)}
+          ${(e.applyStart||e.applyEnd) ? `<span class="apply-info">${fmtApply(e.applyStart,e.applyEnd)}</span>` : ''}
           <a class="apply-btn" href="${e.url}" target="_blank" rel="noopener">詳細・申込 →</a>
         </div>
       </div>`;
